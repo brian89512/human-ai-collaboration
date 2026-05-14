@@ -352,10 +352,11 @@ function buildGrid() {
         }, {passive:true});
         btn.addEventListener('touchmove', e => {
           if (isWeekLocked(wi)) return;
+          e.preventDefault();
           const touch=e.touches[0];
           const el=document.elementFromPoint(touch.clientX,touch.clientY);
           if (el&&el.classList.contains('slot')&&!el.classList.contains('blocked')&&!el.classList.contains('locked')) toggleSlot(el,el.dataset.key);
-        }, {passive:true});
+        }, {passive:false});
 
         td.appendChild(btn); tr.appendChild(td);
       });
