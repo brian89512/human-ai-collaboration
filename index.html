@@ -125,9 +125,15 @@
         <input type="tel" id="f-phone" placeholder="0912-345-678">
       </div>
     </div>
-    <div class="field">
-      <label>Email *</label>
-      <input type="email" id="f-email" placeholder="your@email.com">
+    <div class="field-row">
+      <div class="field">
+        <label>Email *</label>
+        <input type="email" id="f-email" placeholder="your@email.com">
+      </div>
+      <div class="field">
+        <label>年齡 *</label>
+        <input type="number" id="f-age" placeholder="例：22" min="1" max="99">
+      </div>
     </div>
     <div class="field">
       <label>報名人數（含您本人）*</label>
@@ -388,14 +394,15 @@ function submitForm() {
   const dept=document.getElementById('f-dept').value.trim();
   const phone=document.getElementById('f-phone').value.trim();
   const email=document.getElementById('f-email').value.trim();
+  const age=document.getElementById('f-age').value.trim();
   const count=document.getElementById('f-count').value;
   const companion=document.getElementById('f-companion').value.trim();
   const note=document.getElementById('f-note').value.trim();
   const msgBox=document.getElementById('msg-box');
   msgBox.style.display='none'; msgBox.className='msg';
 
-  if (!name||!gender||!dept||!phone||!email||!count) {
-    msgBox.className='msg error'; msgBox.textContent='請填寫所有必填欄位（姓名、性別、科系年級、電話、Email、人數）。'; msgBox.style.display='block'; return;
+  if (!name||!gender||!dept||!phone||!email||!age||!count) {
+    msgBox.className='msg error'; msgBox.textContent='請填寫所有必填欄位（姓名、性別、科系年級、電話、Email、年齡、人數）。'; msgBox.style.display='block'; return;
   }
   if (!selected.size) {
     msgBox.className='msg error'; msgBox.textContent='請至少選取一個方便的時段。'; msgBox.style.display='block'; return;
@@ -414,12 +421,24 @@ function submitForm() {
   const btn=document.getElementById('submit-btn');
   btn.disabled=true; btn.textContent='送出中...';
 
-  emailjs.send('service_3ixwfk3','template_8hqxbmp',{
-    name,email,phone,count,dept,
-    companion:count==='2'?(companion||'未填'):'—',
-    slots:slotList.join('\n'),
-    note:note||'（無）',
-  }).then(()=>{
+  const payload = {
+    name, email, phone, age, count, dept, gender,
+    companion: count==='2'?(companion||'未填'):'—',
+    slots: slotList.join('\n'),
+    note: note||'（無）',
+  };
+
+  const sheetUrl = 'https://script.google.com/macros/s/AKfycbzNxgTJJOOdDIc2qD-bEgfdPZqFi1tXfBG4uO6wXhjHll2P8yPQESsJSx08t_qwOQ8BMA/exec';
+
+  Promise.all([
+    emailjs.send('service_3ixwfk3','template_8hqxbmp', payload),
+    fetch(sheetUrl, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify(payload),
+    }),
+  ]).then(()=>{
     msgBox.className='msg success';
     msgBox.textContent='報名成功！研究人員將於 3 個工作日內以 Email 與您確認實驗時間，請留意信箱。';
     msgBox.style.display='block'; btn.textContent='已送出';
