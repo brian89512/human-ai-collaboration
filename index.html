@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Human-AI collaboration26 — 受試者報名</title>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f3; color: #1a1a1a; font-size: 15px; line-height: 1.6; }
+  .page { max-width: 780px; margin: 0 auto; padding: 2rem 1rem 4rem; }
+
+  .header { margin-bottom: 2rem; }
+  .header h1 { font-size: 22px; font-weight: 500; margin-bottom: 6px; }
+  .header p { font-size: 14px; color: #555; line-height: 1.7; }
+  .info-row { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 10px; }
+  .info-chip { font-size: 13px; color: #555; display: flex; align-items: center; gap: 5px; }
+
+  .card { background: #fff; border: 0.5px solid rgba(0,0,0,0.12); border-radius: 12px; padding: 1.25rem 1.5rem; margin-bottom: 1.25rem; }
+  .card h2 { font-size: 15px; font-weight: 500; margin-bottom: 1rem; }
+
+  .field { margin-bottom: 14px; }
+  .field label { display: block; font-size: 13px; color: #555; margin-bottom: 4px; }
+  .field input, .field select { width: 100%; padding: 8px 10px; border: 0.5px solid rgba(0,0,0,0.2); border-radius: 8px; font-size: 14px; background: #fff; color: #1a1a1a; outline: none; }
+  .field input:focus, .field select:focus { border-color: #1D9E75; box-shadow: 0 0 0 2px rgba(29,158,117,0.15); }
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+  .section-label { font-size: 13px; font-weight: 500; color: #555; margin: 1.5rem 0 0.5rem; letter-spacing: 0.02em; text-transform: uppercase; }
+
+  .week-block { margin-bottom: 1.5rem; }
+  .week-title { font-size: 13px; font-weight: 500; color: #1D9E75; margin-bottom: 8px; }
+
+  .grid-wrap { overflow-x: auto; }
+  table { border-collapse: collapse; min-width: 100%; }
+  .col-time { width: 52px; min-width: 52px; }
+  thead th { font-size: 11px; font-weight: 500; color: #777; text-align: center; padding: 4px 2px; border-bottom: 0.5px solid rgba(0,0,0,0.1); position: sticky; top: 0; background: #fff; z-index: 1; }
+  .time-cell { font-size: 11px; color: #999; text-align: right; padding-right: 6px; white-space: nowrap; vertical-align: middle; }
+
+  .slot { width: 100%; height: 18px; cursor: pointer; border: none; background: #f0f0ee; transition: background 0.1s; display: block; }
+  .slot:hover { background: #9FE1CB; }
+  .slot.selected { background: #1D9E75; }
+  .slot.blocked { background: #e8e8e8; cursor: not-allowed; }
+  td { padding: 1px 1px; }
+
+  .legend { display: flex; gap: 14px; margin-top: 8px; flex-wrap: wrap; }
+  .leg { display: flex; align-items: center; gap: 5px; font-size: 12px; color: #666; }
+  .leg-box { width: 14px; height: 14px; border-radius: 3px; border: 0.5px solid rgba(0,0,0,0.1); flex-shrink: 0; }
+
+  .submit-btn { width: 100%; padding: 12px; background: #1D9E75; color: #fff; border: none; border-radius: 10px; font-size: 15px; font-weight: 500; cursor: pointer; margin-top: 0.5rem; transition: background 0.15s; }
+  .submit-btn:hover { background: #0F6E56; }
+  .submit-btn:disabled { background: #aaa; cursor: not-allowed; }
+
+  .msg { padding: 12px 16px; border-radius: 8px; font-size: 14px; margin-top: 1rem; display: none; }
+  .msg.success { background: #E1F5EE; color: #085041; display: block; }
+  .msg.error { background: #FCEBEB; color: #791F1F; display: block; }
+
+  .slot-count { font-size: 13px; color: #888; margin-top: 6px; }
+  .slot-count span { font-weight: 500; color: #1D9E75; }
+
+  @media (max-width: 500px) {
+    .field-row { grid-template-columns: 1fr; }
+    .page { padding: 1rem 0.75rem 3rem; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <h1>Human-AI collaboration26 — 受試者報名</h1>
+    <p>大家好，我是成大心理系碩士生鄭丞佑，目前正在招募受試者參與人機協作研究實驗。<br>請填寫基本資料，並在下方時間表點選您方便的時段（可多選），完成後送出即可。<br><span style="color:#0F6E56;font-size:13px;">填寫完畢後，研究人員將與您聯繫確認實驗時間，煩請留意 Email 通知。</span></p>
+    <div class="info-row">
+      <span class="info-chip">&#128205; 成大社科院北棟5樓540室</span>
+      <span class="info-chip">&#9200; 約 90 分鐘</span>
+      <span class="info-chip">&#128176; NT$300 整，或依實際時間計算時薪（現金／中信／郵局轉帳）</span>
+      <span class="info-chip">&#128231; brian8951213@gmail.com</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>基本資料</h2>
+    <div class="field-row">
+      <div class="field">
+        <label>姓名 *</label>
+        <input type="text" id="f-name" placeholder="王小明" required>
+      </div>
+      <div class="field">
+        <label>生理性別 *</label>
+        <select id="f-gender">
+          <option value="">請選擇</option>
+          <option>生理男</option>
+          <option>生理女</option>
+        </select>
+      </div>
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label>科系及年級 *</label>
+        <input type="text" id="f-dept" placeholder="心理系大三 / 心理所碩二">
+      </div>
+      <div class="field">
+        <label>電話號碼 *</label>
+        <input type="tel" id="f-phone" placeholder="0912-345-678">
+      </div>
+    </div>
+    <div class="field">
+      <label>Email *</label>
+      <input type="email" id="f-email" placeholder="your@email.com">
+    </div>
+    <div class="field">
+      <label>報名人數（含您本人）*</label>
+      <select id="f-count">
+        <option value="">請選擇</option>
+        <option value="1">1 人（只有我）</option>
+        <option value="2">2 人（我 + 1 位朋友）</option>
+      </select>
+    </div>
+    <div class="field" id="companion-field" style="display:none;">
+      <label>同伴姓名</label>
+      <input type="text" id="f-companion" placeholder="同伴的姓名">
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>請點選您方便的時段</h2>
+    <p style="font-size:13px;color:#777;margin-bottom:1rem;">點擊格子即可選取 / 取消，支援拖曳連選。綠色 = 已選取。</p>
+
+    <div id="grid-container"></div>
+
+    <div class="legend" style="margin-top:12px;">
+      <div class="leg"><div class="leg-box" style="background:#1D9E75;"></div>已選取</div>
+      <div class="leg"><div class="leg-box" style="background:#f0f0ee;"></div>可選（點擊選取）</div>
+    </div>
+    <p class="slot-count">已選取 <span id="count-display">0</span> 個時段</p>
+
+    <div class="field" style="margin-top:1rem;">
+      <label>備註（選填）</label>
+      <input type="text" id="f-note" placeholder="如有特殊狀況或補充，請在此說明">
+    </div>
+
+    <button class="submit-btn" id="submit-btn" onclick="submitForm()">送出報名</button>
+    <div class="msg" id="msg-box"></div>
+  </div>
+
+</div>
+
+<script>
+emailjs.init('NVFJtz6o8ciWoQdrM');
+
+const DAYS = [];
+const start = new Date('2026-05-16');
+const end = new Date('2026-06-20');
+const dayNames = ['日','一','二','三','四','五','六'];
+for (let d = new Date(start); d <= end; d.setDate(d.getDate()+1)) {
+  DAYS.push(new Date(d));
+}
+
+const TIMES = [];
+for (let h = 9; h <= 19; h++) {
+  TIMES.push(`${String(h).padStart(2,'0')}:00`);
+  if (h < 19) TIMES.push(`${String(h).padStart(2,'0')}:30`);
+}
+
+function isBlocked(date, timeStr) {
+  const [h, m] = timeStr.split(':').map(Number);
+  const mins = h * 60 + m;
+  const mo = date.getMonth() + 1;
+  const da = date.getDate();
+  if (mo === 5 && da === 18 && mins >= 17*60 && mins < 20*60) return true;
+  if (mo === 5 && da === 19 && mins >= 14*60 && mins < 19*60) return true;
+  if (mo === 5 && da === 20 && mins >= 9*60 && mins < 12*60) return true;
+  if (mo === 5 && da === 26 && mins >= 14*60 && mins < 17*60) return true;
+  if (mo === 6 && da === 2  && mins >= 14*60 && mins < 17*60) return true;
+  if (mo === 6 && da === 9  && mins >= 14*60 && mins < 17*60) return true;
+  if (mo === 6 && da === 16 && mins >= 14*60 && mins < 17*60) return true;
+  return false;
+}
+
+const WEEKS = [
+  { label: '第 1 週　5/16（六）－ 5/23（六）', days: DAYS.slice(0, 8) },
+  { label: '第 2 週　5/24（日）－ 5/30（六）', days: DAYS.slice(8, 15) },
+  { label: '第 3 週　5/31（日）－ 6/6（六）',  days: DAYS.slice(15, 22) },
+  { label: '第 4 週　6/7（日）－ 6/13（六）',  days: DAYS.slice(22, 29) },
+  { label: '第 5 週　6/14（日）－ 6/20（六）', days: DAYS.slice(29, 36) },
+];
+
+const selected = new Set();
+let isDragging = false;
+let dragMode = null;
+
+function slotKey(dayIdx, timeIdx) { return `${dayIdx}_${timeIdx}`; }
+
+function updateCount() {
+  document.getElementById('count-display').textContent = selected.size;
+}
+
+function toggleSlot(el, key) {
+  if (el.classList.contains('blocked')) return;
+  if (dragMode === true) {
+    el.classList.add('selected');
+    selected.add(key);
+  } else if (dragMode === false) {
+    el.classList.remove('selected');
+    selected.delete(key);
+  } else {
+    if (selected.has(key)) { el.classList.remove('selected'); selected.delete(key); }
+    else { el.classList.add('selected'); selected.add(key); }
+  }
+  updateCount();
+}
+
+function buildGrid() {
+  const container = document.getElementById('grid-container');
+  let globalDayIdx = 0;
+
+  WEEKS.forEach(week => {
+    const wb = document.createElement('div');
+    wb.className = 'week-block';
+    const wt = document.createElement('div');
+    wt.className = 'week-title';
+    wt.textContent = week.label;
+    wb.appendChild(wt);
+
+    const gw = document.createElement('div');
+    gw.className = 'grid-wrap';
+    const tbl = document.createElement('table');
+
+    const thead = document.createElement('thead');
+    const hr = document.createElement('tr');
+    const thEmpty = document.createElement('th');
+    thEmpty.className = 'col-time';
+    hr.appendChild(thEmpty);
+    week.days.forEach(d => {
+      const th = document.createElement('th');
+      th.innerHTML = `${d.getMonth()+1}/${d.getDate()}<br><span style="color:#aaa;font-weight:400;">${dayNames[d.getDay()]}</span>`;
+      hr.appendChild(th);
+    });
+    thead.appendChild(hr);
+    tbl.appendChild(thead);
+
+    const tbody = document.createElement('tbody');
+    TIMES.forEach((t, ti) => {
+      const tr = document.createElement('tr');
+      const tdT = document.createElement('td');
+      tdT.className = 'time-cell col-time';
+      tdT.textContent = t.endsWith(':00') ? t : '';
+      tr.appendChild(tdT);
+
+      week.days.forEach((d, di) => {
+        const gdi = globalDayIdx + di;
+        const key = slotKey(gdi, ti);
+        const blocked = isBlocked(d, t);
+        const td = document.createElement('td');
+        const btn = document.createElement('button');
+        btn.className = 'slot' + (blocked ? ' blocked' : '');
+        btn.setAttribute('aria-label', `${d.getMonth()+1}/${d.getDate()} ${t}`);
+        btn.dataset.key = key;
+
+        btn.addEventListener('mousedown', e => {
+          if (blocked) return;
+          e.preventDefault();
+          isDragging = true;
+          dragMode = !selected.has(key);
+          toggleSlot(btn, key);
+        });
+        btn.addEventListener('mouseenter', () => {
+          if (isDragging && !blocked) toggleSlot(btn, key);
+        });
+        btn.addEventListener('touchstart', e => {
+          if (blocked) return;
+          e.preventDefault();
+          isDragging = true;
+          dragMode = !selected.has(key);
+          toggleSlot(btn, key);
+        }, { passive: false });
+        btn.addEventListener('touchmove', e => {
+          e.preventDefault();
+          const touch = e.touches[0];
+          const el = document.elementFromPoint(touch.clientX, touch.clientY);
+          if (el && el.classList.contains('slot') && !el.classList.contains('blocked')) {
+            toggleSlot(el, el.dataset.key);
+          }
+        }, { passive: false });
+
+        td.appendChild(btn);
+        tr.appendChild(td);
+      });
+      tbody.appendChild(tr);
+    });
+    tbl.appendChild(tbody);
+    gw.appendChild(tbl);
+    wb.appendChild(gw);
+    container.appendChild(wb);
+    globalDayIdx += week.days.length;
+  });
+
+  document.addEventListener('mouseup', () => { isDragging = false; dragMode = null; });
+  document.addEventListener('touchend', () => { isDragging = false; dragMode = null; });
+}
+
+buildGrid();
+
+document.getElementById('f-count').addEventListener('change', function() {
+  document.getElementById('companion-field').style.display = this.value === '2' ? 'block' : 'none';
+});
+
+function submitForm() {
+  const name    = document.getElementById('f-name').value.trim();
+  const gender  = document.getElementById('f-gender').value;
+  const dept    = document.getElementById('f-dept').value.trim();
+  const phone   = document.getElementById('f-phone').value.trim();
+  const email   = document.getElementById('f-email').value.trim();
+  const count   = document.getElementById('f-count').value;
+  const companion = document.getElementById('f-companion').value.trim();
+  const note    = document.getElementById('f-note').value.trim();
+  const msgBox  = document.getElementById('msg-box');
+  msgBox.className = 'msg';
+  msgBox.style.display = 'none';
+
+  if (!name || !gender || !dept || !phone || !email || !count) {
+    msgBox.className = 'msg error';
+    msgBox.textContent = '請填寫所有必填欄位（姓名、性別、科系年級、電話、Email、人數）。';
+    return;
+  }
+  if (selected.size === 0) {
+    msgBox.className = 'msg error';
+    msgBox.textContent = '請至少選取一個方便的時段。';
+    return;
+  }
+
+  const allDays = [];
+  WEEKS.forEach(w => w.days.forEach(d => allDays.push(d)));
+
+  const slotList = [];
+  selected.forEach(key => {
+    const [di, ti] = key.split('_').map(Number);
+    const d = allDays[di];
+    const t = TIMES[ti];
+    slotList.push(`${d.getMonth()+1}/${d.getDate()}（${dayNames[d.getDay()]}）${t}`);
+  });
+  slotList.sort();
+
+  const btn = document.getElementById('submit-btn');
+  btn.disabled = true;
+  btn.textContent = '送出中...';
+
+  emailjs.send('service_3ixwfk3', 'template_8hqxbmp', {
+    name, email, phone, count,
+    dept,
+    companion: count === '2' ? (companion || '未填') : '—',
+    slots: slotList.join('\n'),
+    note: note || '（無）',
+  }).then(() => {
+    msgBox.className = 'msg success';
+    msgBox.textContent = '報名成功！研究人員將於 3 個工作日內以 Email 與您確認實驗時間，請留意信箱。';
+    btn.textContent = '已送出';
+  }).catch(err => {
+    msgBox.className = 'msg error';
+    msgBox.textContent = '送出失敗，請稍後再試或直接寄信至 brian8951213@gmail.com。（錯誤：' + JSON.stringify(err) + '）';
+    btn.disabled = false;
+    btn.textContent = '送出報名';
+  });
+}
+</script>
+</body>
+</html>
